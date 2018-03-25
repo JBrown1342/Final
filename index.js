@@ -1,26 +1,21 @@
-var   express = require('express'),
-      app = express();
-const { Pool, Client } = require('pg');
+var express = require('express'),
+    app = express();
+var Pool = require('pg').Pool;
+var config = {
+  host: 'localhost',
+  user: '',
+  password: '',
+  database: 'show_database',
+}
 
-const pool = new Pool();
-const client = new Client
-var connect = "postgres://USERNAME:PASSWORD@localhost/show_database";
+pool = new Pool(config);
 
-client.connect();
-pool.connect((err, client, done) => {
-  if (err) throw err
-  client.query('SELECT * FROM artists', [1], (err, res) => {
-    console.log(true);
-    done();
+async function get_artists(){
+  var response = await pool.query("SELECT * from artists");
+  console.log(response.rows);
+  app.get('/', (req, res) => res.send(response.rows));
+};
 
-    if (err) {
-      console.log(err.stack);
-    } else {
-      console.log(res.rows[0]);
-    }
-  });
-});
-
-app.get('/', (req, res) => res.send('hello world'));
+get_artists();
 
 app.listen(3000, () => console.log('Server started on port 3000'));
