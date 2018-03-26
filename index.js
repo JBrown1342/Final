@@ -5,8 +5,8 @@ var express = require('express'),
 var Pool = require('pg').Pool;
 var config = {
   host: 'localhost',
-  user: 'postgres',
-  password: 'Berklee123',
+  user: '',
+  password: '',
   database: 'show_database',
 }
 
