@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>ADD ARTIST</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
+  </head>
+  <body id='body'>
+
+    <form id="add_artist_form" action="/add_artist" method="post">
+      <label for="artist_name"> Artist Name</label>
+      <input name="artist_name" type="text" value="<%= qs.artist_name %>"><br>
+      <label for="artist_website">Artist Website</label>
+      <input name="artist_website" type="text" value="<%= qs.artist_website %>"><br>
+      <input id='add_art' type="submit" value="Submit"></input>
+    </form>
+
+    <script type="text/javascript">
+      $('#add_art').click(function(){
+        console.log("Submitted!");
+          $.post('/add_artist', function(){
+            console.log('POSTED!');
+        });
+      });
+    </script>
+
+  </body>
+</html>

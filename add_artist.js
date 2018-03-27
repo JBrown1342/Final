@@ -2,7 +2,10 @@ var express = require('express'),
     app = express(),
     bodyParser = require('body-parser');
 
+var urlencodedParser = app.use(bodyParser.urlencoded({ extended: false }));
+
 var Pool = require('pg').Pool;
+
 var config = {
   host: 'localhost',
   user: '',
@@ -21,12 +24,9 @@ app.use(function(req, res, next){
 
 pool = new Pool(config);
 
-async function get_artists(){
-  var response = await pool.query("SELECT * FROM artists");
-  console.log(response.rows);
-  app.get('/', (req, res) => res.send(response.rows));
-};
 
-get_artists();
+app.post('/add_artist', urlencodedParser, function(req, res){
+    console.log(req.body);
+});
 
 app.listen(3000, () => console.log('Server started on port 3000'));

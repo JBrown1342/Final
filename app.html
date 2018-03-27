@@ -2,9 +2,28 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>SHOW DATABASE</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
   </head>
-  <body>
+  <body id='body'>
+    <input id="artist_name" type="text" placeholder="Artist Name"><br>
+
+    <button type="button" id="search">search</button>
+
+    <script type="text/javascript">
+      $('#search').click(function(){
+        let test = document.getElementById('test');
+
+        $.get('http://localhost:3000', function(data) {
+          data.forEach(function(data){
+              let div = document.createElement('div'),
+                  body = document.getElementById('body');
+              div.innerHTML = data.artist_name;
+              body.appendChild(div);
+          });
+        });
+      });
+    </script>
 
   </body>
 </html>
